@@ -1,11 +1,12 @@
-export const ADD_TASK = 'ADD_TASK'
-export const REMOVE_ALL_TASKS = 'REMOVE_ALL_TASKS'
-export const REMOVE_TASK = 'REMOVE_TASK'
-export const CHANGE_TASK = 'CHANGE_TASK'
-export const FILTER_ALL_TASKS = 'FILTER_ALL_TASKS'
-export const FILTER_IS_COMPLETED_TASKS = 'FILTER_IS_COMPLETED_TASKS'
-export const FILTER_IS_NOT_COMPLETED_TASKS = 'FILTER_IS_NOT_COMPLETED_TASKS'
-
+import {
+  ADD_TASK,
+  CHANGE_TASK,
+  FILTER_ALL,
+  FILTER_IS_COMPLETED,
+  FILTER_IS_NOT_COMPLETED,
+  REMOVE_ALL_TASKS,
+  REMOVE_TASK
+} from "./types";
 
 export const addTask = (text) => ({
   type: ADD_TASK,
@@ -28,15 +29,15 @@ export const removeAllTask = () => ({
   type: REMOVE_ALL_TASKS
 })
 
-export const filterAllTasks = () => ({
-  type: FILTER_ALL_TASKS
+export const filterAll = () => ({
+  type: FILTER_ALL
 })
 
-export const filterIsCompletedTaks = () => ({
-  type: FILTER_IS_COMPLETED_TASKS
+export const filterIsCompleted = () => ({
+  type: FILTER_IS_COMPLETED
 })
 
-export const filterIsNotCompletedTaks = () => ({
-  type: FILTER_IS_NOT_COMPLETED_TASKS
+export const filterIsNotCompleted = () => ({
+  type: FILTER_IS_NOT_COMPLETED
 })
 

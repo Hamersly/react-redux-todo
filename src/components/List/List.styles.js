@@ -2,10 +2,7 @@ import styled from "styled-components";
 
 export const ListWrapper = styled.div``;
 export const TasksList = styled.div``;
-export const FilterBlock = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+
 
 export const MyButton = styled.button`
   padding: 5px 15px;
@@ -17,9 +14,6 @@ export const MyButton = styled.button`
   border-radius: 50px;
 `;
 
-export const FilterButton = styled(MyButton)`
-  margin: 30px 30px 0 30px ;
-`;
 
 export const RemoveTasksButton = styled(MyButton)`
   margin-bottom: 30px;

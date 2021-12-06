@@ -1,56 +1,66 @@
 import React, {useEffect} from "react";
-import {FilterBlock, FilterButton, ListWrapper, RemoveTasksBlock, RemoveTasksButton, TasksList} from "./List.styles";
+import {ListWrapper, RemoveTasksBlock, RemoveTasksButton, TasksList} from "./List.styles";
 import {Input} from "../Input/Input";
 import {Task} from "../Task/Task";
 import {useDispatch, useSelector} from "react-redux";
-import {addTask, changeTask, removeAllTask, removeTask} from "../../store/actions";
+import {
+  addTask,
+  changeTask,
+  filterAll,
+  filterIsCompleted,
+  filterIsNotCompleted,
+  removeAllTask,
+  removeTask
+} from "../../store/actions";
+import {FilterBlock} from "../FilterBlock/FilterBlock";
 
 export const List = () => {
-  const todoList = useSelector((state) => state.todoReducer.todoList)
+  const todos = useSelector((state) => state.todoReducer)
+  const todoList = todos.sortedList
+  const flag = todos.flag
   const dispatch = useDispatch()
 
   useEffect(() => {
     localStorage.clear();
-    localStorage.setItem("todoList", JSON.stringify(todoList));
+    localStorage.setItem("todos", JSON.stringify(todos));
   });
 
   const addTodo = (text) => {
     dispatch(addTask(text))
+    filterTodo()
   };
 
   const removeTodo = (id) => {
     dispatch(removeTask(id))
+    filterTodo()
   };
 
   const ChangeValueTodo = (id, value, text) => {
     dispatch(changeTask(id, value, text))
+    filterTodo()
   };
 
   const removeAll = () => {
     dispatch(removeAllTask())
   }
 
-  const filterTodo = (status) => {
-    switch (status) {
-      case 'completed':
-        return todoList.filter((todo) => todo.isCompleted);
-      case 'notCompleted':
-        return todoList.filter((todo) => !todo.isCompleted);
-      case 'all':
-        return todoList;
+  const filterTodo = () => {
+    switch (flag) {
+      case "FILTER_ALL":
+        return dispatch(filterAll())
+      case "FILTER_IS_COMPLETED":
+        return dispatch(filterIsCompleted())
+      case "FILTER_IS_NOT_COMPLETED":
+        return dispatch(filterIsNotCompleted())
       default:
-        return todoList;
+        return dispatch(filterAll())
     }
   }
 
   return (
     <ListWrapper>
       <Input addTodo={addTodo}/>
-      <FilterBlock>
-        <FilterButton onClick={() => filterTodo('completed')}>Сделано</FilterButton>
-        <FilterButton onClick={() => filterTodo('all')}>Всё</FilterButton>
-        <FilterButton onClick={() => filterTodo('notCompleted')}>Не сделано</FilterButton>
-      </FilterBlock>
+      <FilterBlock></FilterBlock>
       <TasksList>
         {todoList.map((item) => (
           <Task
