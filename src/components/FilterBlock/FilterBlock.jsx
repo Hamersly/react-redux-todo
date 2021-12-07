@@ -1,10 +1,9 @@
-import React from "react";
 import {filterAll, filterIsCompleted, filterIsNotCompleted} from "../../store/actions";
 import {useDispatch, useSelector} from "react-redux";
 import {FilterButton, Filters} from "./FilterBlock.styles";
 
-export const FilterBlock = (props) => {
-  const flag = useSelector((state) => state.todoReducer.flag)
+export const FilterBlock = () => {
+  const flag = useSelector((state) => state.todos.flag)
   const dispatch = useDispatch()
 
   return (
@@ -12,7 +11,7 @@ export const FilterBlock = (props) => {
       {flag === "FILTER_IS_COMPLETED" ?
         <FilterButton
           onClick={() => dispatch(filterIsCompleted())}
-          Color={"background-color: red;"}>
+          color={"background-color: red;"}>
           Сделано
         </FilterButton> :
         <FilterButton onClick={() => dispatch(filterIsCompleted())}>
@@ -20,10 +19,16 @@ export const FilterBlock = (props) => {
         </FilterButton>
       }
 
+      {/*<FilterButton*/}
+      {/*  onClick={() => dispatch(filterIsCompleted())}*/}
+      {/*  {flag == "FILTER_IS_COMPLETED" && color = {"background-color: red;"}}>*/}
+      {/*  Сделано*/}
+      {/*</FilterButton>*/}
+
       {flag === "FILTER_ALL" ?
         <FilterButton
           onClick={() => dispatch(filterAll())}
-          Color={"background-color: red;"}>
+          color={"background-color: red;"}>
           Всё
         </FilterButton> :
         <FilterButton
@@ -35,7 +40,7 @@ export const FilterBlock = (props) => {
       {flag === "FILTER_IS_NOT_COMPLETED" ?
         <FilterButton
           onClick={() => dispatch(filterIsNotCompleted())}
-          Color={"background-color: red;"}>
+          color={"background-color: red;"}>
           Ожидает
         </FilterButton> :
         <FilterButton

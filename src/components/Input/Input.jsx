@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {AddButton, InputBlock, StyledInput} from "./Input.styles";
 
 export const Input = ({addTodo}) => {
   const [value, setValue] = useState("");
 
   const addTodoInList = () => {
-    if (value.trim().length !== 0) {
-      addTodo(value.trim());
+    if (value.trim().length) {
+      addTodo(value);
       setValue("");
     }
   };

@@ -4,9 +4,10 @@ import {MyButton} from "../List/List.styles";
 export const Filters = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 export const FilterButton = styled(MyButton)`
-  margin: 30px 30px 0 10px;
-  ${(props) => props.Color};
+  margin: 30px 10px;
+  ${(props) => props.color};
 `;

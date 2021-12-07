@@ -1,75 +1,40 @@
-import React, {useState} from "react";
+import {useState} from "react";
+import {DateBlock} from "../DataBlock/DateBlock";
+import {TaskChanger} from "../TaskChanger/TaskChanger";
+import {TaskWrapper} from "../TaskWrapper/TaskWrapper";
 import {
-  ChangeButton,
-  ChangeText,
-  Date,
-  DateBlock,
-  RemoveButton,
-  SaveButton,
   TaskBlock,
-  TaskChanger,
-  TaskText,
-  TaskWrapper,
 } from "./Task.styles";
 
-export const Task = ({
-                       task,
-                       removeTodo,
-                       ChangeValueTodo
-                     }) => {
-  const [value, setValue] = useState(task.text);
+export const Task = ({task, removeTodo, changeValueTodo}) => {
+  const [text, setText] = useState(task.text);
 
   const changeTodo = () => {
-    if (value.trim().length !== 0) {
-      ChangeValueTodo(task.id, 'change', value.trim());
-      setValue("");
+    if (text.trim().length) {
+      changeValueTodo(task.id, 'change', text);
+      setText("");
     }
   };
 
   return (
     <TaskBlock>
-      <DateBlock>
-        <Date>{task.date}</Date>
-        <div>
-          {task.change ? (
-            <ChangeButton
-              onClick={() => ChangeValueTodo(task.id, 'change')}
-              Color={"background-color: red;"}
-            >
-              ред.
-            </ChangeButton>
-          ) : (
-            <ChangeButton onClick={() => ChangeValueTodo(task.id, 'change')}>
-              ред.
-            </ChangeButton>
-          )}
-
-          <RemoveButton onClick={() => removeTodo(task.id)}>
-            x
-          </RemoveButton>
-        </div>
+      <DateBlock
+        task={task}
+        removeTodo={removeTodo}
+        changeValueTodo={changeValueTodo}>
       </DateBlock>
 
       {task.change ? (
-        <TaskChanger>
-          <ChangeText
-            defaultValue={task.text}
-            onChange={(e) => setValue(e.target.value)}
-            type="text"
-            wrap="hard"
-            rows="3"
-          />
-          <SaveButton onClick={changeTodo}>Сохранить</SaveButton>
+        <TaskChanger
+          changeTodo={changeTodo}
+          task={task}
+          setText={setText}>
         </TaskChanger>
       ) : (
-        <TaskWrapper onClick={() => ChangeValueTodo(task.id, 'isCompleted')}>
-          {task.isCompleted ? (
-            <TaskText Completed={"text-decoration: line-through;"}>
-              {task.text}
-            </TaskText>
-          ) : (
-            <TaskText>{task.text}</TaskText>
-          )}
+        <TaskWrapper
+          onClick={() => changeValueTodo(task.id, 'isCompleted')}
+          task={task}
+          changeValueTodo={changeValueTodo}>
         </TaskWrapper>
       )}
     </TaskBlock>

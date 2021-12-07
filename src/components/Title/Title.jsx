@@ -1,6 +1,5 @@
-import React from "react";
 import {StyledTitle} from "./Title.styles";
 
-export const Title = (props) => {
+export const Title = () => {
   return <StyledTitle>Todo list</StyledTitle>;
 };

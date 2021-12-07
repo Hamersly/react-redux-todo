@@ -33,7 +33,7 @@ export const todoReducer = (state = initialState(), action) => {
       }
       return {
         ...state,
-        todoList: [...state.todoList, todo]
+        todoList: [...state.todoList, todo],
       }
 
     case REMOVE_ALL_TASKS:
@@ -46,7 +46,7 @@ export const todoReducer = (state = initialState(), action) => {
     case REMOVE_TASK:
       return {
         ...state,
-        todoList: state.todoList.filter((task) => task.id !== action.id)
+        todoList: state.todoList.filter((task) => task.id !== action.id),
       }
 
     case CHANGE_TASK:
@@ -57,7 +57,8 @@ export const todoReducer = (state = initialState(), action) => {
             ? {...task, [action.value]: !task[action.value], text: action.text}
             : task.id === action.id
               ? {...task, [action.value]: !task[action.value]}
-              : {...task})
+              : {...task}
+        )
       }
 
     case FILTER_ALL:
@@ -85,4 +86,5 @@ export const todoReducer = (state = initialState(), action) => {
       return state
   }
 }
+
 

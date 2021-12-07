@@ -3,7 +3,7 @@ import {MyButton} from "../List/List.styles";
 
 export const InputBlock = styled.div`
     display: flex;
-    
+      
 `;
 
 export const StyledInput = styled.input`

@@ -1,21 +1,14 @@
-import React, {useEffect} from "react";
-import {ListWrapper, RemoveTasksBlock, RemoveTasksButton, TasksList} from "./List.styles";
+import {useEffect} from "react";
+import {ListWrapper, TasksList} from "./List.styles";
 import {Input} from "../Input/Input";
 import {Task} from "../Task/Task";
-import {useDispatch, useSelector} from "react-redux";
-import {
-  addTask,
-  changeTask,
-  filterAll,
-  filterIsCompleted,
-  filterIsNotCompleted,
-  removeAllTask,
-  removeTask
-} from "../../store/actions";
 import {FilterBlock} from "../FilterBlock/FilterBlock";
+import {RemoveTasksBlock} from "../RemoveTasksBlock/RemoveTasksBlock";
+import {useDispatch, useSelector} from "react-redux";
+import {addTask, changeTask, filterAll, filterIsCompleted, filterIsNotCompleted, removeTask} from "../../store/actions";
 
 export const List = () => {
-  const todos = useSelector((state) => state.todoReducer)
+  const todos = useSelector((state) => state.todos)
   const todoList = todos.sortedList
   const flag = todos.flag
   const dispatch = useDispatch()
@@ -35,14 +28,10 @@ export const List = () => {
     filterTodo()
   };
 
-  const ChangeValueTodo = (id, value, text) => {
+  const changeValueTodo = (id, value, text) => {
     dispatch(changeTask(id, value, text))
     filterTodo()
   };
-
-  const removeAll = () => {
-    dispatch(removeAllTask())
-  }
 
   const filterTodo = () => {
     switch (flag) {
@@ -60,26 +49,18 @@ export const List = () => {
   return (
     <ListWrapper>
       <Input addTodo={addTodo}/>
-      <FilterBlock></FilterBlock>
+      <FilterBlock/>
       <TasksList>
         {todoList.map((item) => (
           <Task
             removeTodo={removeTodo}
             task={item}
-            ChangeValueTodo={ChangeValueTodo}
+            changeValueTodo={changeValueTodo}
             key={item.id}
           />
         ))}
       </TasksList>
-      <RemoveTasksBlock>
-        {todoList.length > 1 ? (
-          <RemoveTasksButton onClick={() => removeAll()}>
-            Удалить всё
-          </RemoveTasksButton>
-        ) : (
-          <div></div>
-        )}
-      </RemoveTasksBlock>
+      <RemoveTasksBlock todoList={todoList}/>
     </ListWrapper>
   );
 };
