@@ -22,5 +22,5 @@ export const RemoveButton = styled.button`
 `;
 
 export const ChangeButton = styled(RemoveButton)`
-  ${(props) => props.Color};
+  ${(props) => props.change};
 `;

@@ -1,19 +1,20 @@
-import {ChangeButton, Date, Block, RemoveButton} from "./DateBlock.styles";
+import {Block, ChangeButton, Date, RemoveButton} from "./DateBlock.styles";
 
 export const DateBlock = ({task, changeValueTodo, removeTodo}) => {
+
+  const changeColor = () => {
+    if (task.change) return "background-color: red;"
+  }
+
   return (
     <Block>
       <Date>{task.date}</Date>
       <div>
-
-        {task.change ?
-          (<ChangeButton
-            onClick={() => changeValueTodo(task.id, 'change')}
-            Color={"background-color: red;"}>ред.
-          </ChangeButton>) :
-          (<ChangeButton onClick={() => changeValueTodo(task.id, 'change')}>ред.</ChangeButton>)}
-
-        <RemoveButton onClick={() => removeTodo(task.id)}>x</RemoveButton>
+        <ChangeButton
+          onClick={() => changeValueTodo(task.id, 'change')}
+          change={changeColor}>ред.
+        </ChangeButton>
+        <RemoveButton onClick={() => removeTodo(task.id)}>X</RemoveButton>
       </div>
     </Block>
   )

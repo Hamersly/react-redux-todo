@@ -18,25 +18,26 @@ export const Task = ({task, removeTodo, changeValueTodo}) => {
 
   return (
     <TaskBlock>
+
       <DateBlock
         task={task}
         removeTodo={removeTodo}
         changeValueTodo={changeValueTodo}>
       </DateBlock>
 
-      {task.change ? (
-        <TaskChanger
+      {task.change ?
+        (<TaskChanger
           changeTodo={changeTodo}
           task={task}
           setText={setText}>
-        </TaskChanger>
-      ) : (
-        <TaskWrapper
+        </TaskChanger>) :
+
+        (<TaskWrapper
           onClick={() => changeValueTodo(task.id, 'isCompleted')}
           task={task}
           changeValueTodo={changeValueTodo}>
-        </TaskWrapper>
-      )}
+        </TaskWrapper>)}
+
     </TaskBlock>
   );
 };

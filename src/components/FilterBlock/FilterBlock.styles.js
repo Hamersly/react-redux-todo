@@ -9,5 +9,5 @@ export const Filters = styled.div`
 
 export const FilterButton = styled(MyButton)`
   margin: 30px 10px;
-  ${(props) => props.color};
+  ${(props) => props.Color};
 `;

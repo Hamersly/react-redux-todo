@@ -8,20 +8,19 @@ import {
   REMOVE_TASK
 } from './types';
 
-const initialState = () => {
+const getInitialState = () => {
   const localTodo = JSON.parse(localStorage.getItem("todos"));
-  if (localTodo === null) {
+  if (!localTodo) {
     return {
       todoList: [],
       sortedList: [],
       flag: FILTER_ALL
     };
-  } else {
-    return localTodo;
   }
+  return localTodo;
 };
 
-export const todoReducer = (state = initialState(), action) => {
+export const todoReducer = (state = getInitialState(), action) => {
   switch (action.type) {
     case ADD_TASK:
       const todo = {
@@ -52,12 +51,15 @@ export const todoReducer = (state = initialState(), action) => {
     case CHANGE_TASK:
       return {
         ...state,
-        todoList: state.todoList.map((task) =>
-          task.id === action.id && action.text
-            ? {...task, [action.value]: !task[action.value], text: action.text}
-            : task.id === action.id
-              ? {...task, [action.value]: !task[action.value]}
-              : {...task}
+        todoList: state.todoList.map((task) => {
+            if (task.id === action.id && action.text) {
+              return {...task, [action.value]: !task[action.value], text: action.text}
+            } else if (task.id === action.id) {
+              return {...task, [action.value]: !task[action.value]}
+            } else {
+              return {...task}
+            }
+          }
         )
       }
 
