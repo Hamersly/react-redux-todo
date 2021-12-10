@@ -80,7 +80,7 @@ export const todoReducer = (state = getInitialState(), action) => {
       return {
         ...state,
         todoList: changeTaskValue,
-        sortedList: changeTaskValue
+        sortedList:todoFilter(state.flag, changeTaskValue)
       }
 
     case FILTER_ALL:
