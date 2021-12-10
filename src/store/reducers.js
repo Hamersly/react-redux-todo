@@ -20,8 +20,22 @@ const getInitialState = () => {
   return localTodo;
 };
 
+const todoFilter = (flag, arr) => {
+  switch (flag) {
+    case "FILTER_ALL":
+      return  arr
+    case "FILTER_IS_COMPLETED":
+      return arr.filter((task) => task.isCompleted)
+    case "FILTER_IS_NOT_COMPLETED":
+      return arr.filter((task) => !task.isCompleted)
+    default:
+      return arr
+  }
+}
+
 export const todoReducer = (state = getInitialState(), action) => {
   switch (action.type) {
+
     case ADD_TASK:
       const todo = {
         id: new Date().getTime(),
@@ -30,9 +44,11 @@ export const todoReducer = (state = getInitialState(), action) => {
         isCompleted: false,
         change: false,
       }
+      const addValue = [...state.todoList, todo]
       return {
         ...state,
-        todoList: [...state.todoList, todo],
+        todoList: addValue,
+        sortedList: todoFilter(state.flag, addValue)
       }
 
     case REMOVE_ALL_TASKS:
@@ -43,24 +59,28 @@ export const todoReducer = (state = getInitialState(), action) => {
       }
 
     case REMOVE_TASK:
+      const removeTaskValue = state.todoList.filter((task) => task.id !== action.id)
       return {
         ...state,
-        todoList: state.todoList.filter((task) => task.id !== action.id),
+        todoList: removeTaskValue,
+        sortedList: todoFilter(state.flag, removeTaskValue)
       }
 
     case CHANGE_TASK:
+      const changeTaskValue = state.todoList.map((task) => {
+          if (task.id === action.id && action.text) {
+            return {...task, [action.value]: !task[action.value], text: action.text}
+          } else if (task.id === action.id) {
+            return {...task, [action.value]: !task[action.value]}
+          } else {
+            return {...task}
+          }
+        }
+      )
       return {
         ...state,
-        todoList: state.todoList.map((task) => {
-            if (task.id === action.id && action.text) {
-              return {...task, [action.value]: !task[action.value], text: action.text}
-            } else if (task.id === action.id) {
-              return {...task, [action.value]: !task[action.value]}
-            } else {
-              return {...task}
-            }
-          }
-        )
+        todoList: changeTaskValue,
+        sortedList: changeTaskValue
       }
 
     case FILTER_ALL:

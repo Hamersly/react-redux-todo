@@ -1,13 +1,16 @@
 import {useState} from "react";
 import {AddButton, InputBlock, StyledInput} from "./Input.styles";
+import {useDispatch} from "react-redux";
+import {addTask} from "../../store/actions";
 
-export const Input = ({addTodo}) => {
-  const [value, setValue] = useState("");
+export const Input = () => {
+  const [text, setText] = useState("");
+  const dispatch = useDispatch()
 
   const addTodoInList = () => {
-    if (value.trim().length) {
-      addTodo(value);
-      setValue("");
+    if (text.trim().length) {
+      dispatch(addTask(text))
+      setText("");
     }
   };
 
@@ -21,8 +24,8 @@ export const Input = ({addTodo}) => {
     <InputBlock>
       <StyledInput
         type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
         onKeyDown={handleSubmit}
         placeholder="Введи задачу"
       />

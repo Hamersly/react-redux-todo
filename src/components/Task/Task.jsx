@@ -5,9 +5,16 @@ import {TaskWrapper} from "../TaskWrapper/TaskWrapper";
 import {
   TaskBlock,
 } from "./Task.styles";
+import {useDispatch} from "react-redux";
+import {changeTask} from "../../store/actions";
 
-export const Task = ({task, removeTodo, changeValueTodo}) => {
+export const Task = ({task}) => {
   const [text, setText] = useState(task.text);
+  const dispatch = useDispatch()
+
+  const changeValueTodo = (id, value, text) => {
+    dispatch(changeTask(id, value, text))
+  };
 
   const changeTodo = () => {
     if (text.trim().length) {
@@ -21,7 +28,6 @@ export const Task = ({task, removeTodo, changeValueTodo}) => {
 
       <DateBlock
         task={task}
-        removeTodo={removeTodo}
         changeValueTodo={changeValueTodo}>
       </DateBlock>
 
