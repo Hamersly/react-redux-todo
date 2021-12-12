@@ -6,7 +6,7 @@ import {
   TaskBlock,
 } from "./Task.styles";
 import {useDispatch} from "react-redux";
-import {changeTask} from "../../store/actions";
+import {changeTask} from "../../store/todo/actions";
 
 export const Task = ({task}) => {
   const [text, setText] = useState(task.text);

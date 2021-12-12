@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {AddButton, InputBlock, StyledInput} from "./Input.styles";
 import {useDispatch} from "react-redux";
-import {addTask} from "../../store/actions";
+import {addTask} from "../../store/todo/actions";
 
 export const Input = () => {
   const [text, setText] = useState("");

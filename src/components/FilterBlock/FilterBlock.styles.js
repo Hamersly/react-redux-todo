@@ -7,7 +7,17 @@ export const Filters = styled.div`
   align-items: center;
 `;
 
-export const FilterButton = styled(MyButton)`
+export const CompletedFilterButton = styled(MyButton)`
   margin: 30px 10px;
-  ${(props) => props.Color};
+  background-color: ${(props) => props.Color === "FILTER_IS_COMPLETED" && "red"} ;
+`;
+
+export const AllFilterButton = styled(MyButton)`
+  margin: 30px 10px;
+  background-color: ${(props) => props.Color === "FILTER_ALL" && "red"} ;
+`;
+
+export const IsNotCompletedFilterButton = styled(MyButton)`
+  margin: 30px 10px;
+  background-color: ${(props) => props.Color === "FILTER_IS_NOT_COMPLETED" && "red"} ;
 `;

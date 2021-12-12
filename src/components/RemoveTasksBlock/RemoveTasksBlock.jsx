@@ -1,4 +1,4 @@
-import {removeAllTask} from "../../store/actions";
+import {removeAllTask} from "../../store/todo/actions";
 import {RemBlock, RemoveTasksButton} from "./RemoveTasksBlock.styles";
 import {useDispatch, useSelector} from "react-redux";
 
