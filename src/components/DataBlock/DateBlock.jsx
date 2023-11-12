@@ -18,3 +18,4 @@ export const DateBlock = ({task, changeValueTodo}) => {
     </Block>
   )
 }
+
